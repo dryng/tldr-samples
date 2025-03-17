@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Responsive Slider with Animation</title>
+    <!-- Swiper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    <style>
+        /* Slider Container */
+        #my-slider {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: none;
+            /* transition: opacity 0.5s ease, transform 0.5s ease; */
+            pointer-events: none;
+            max-width: 90vw;
+        }
+
+        /* Open state */
+        #my-slider.open {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            animation: bounceInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Animation */
+        @keyframes bounceInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            80% {
+                transform: translateX(3px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Swiper container */
+        #my-slider .swiper {
+            width: 350px;
+            max-width: 90vw;
+            height: 250px;
+        }
+
+        /* Slides */
+        #my-slider .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12%;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50%;
+            background: #f0f0f0;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* TL;DR Button */
+        #toggle-tldr {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 50;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #toggle-tldr:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            #my-slider {
+                bottom: 60px;
+                right: 10px;
+            }
+
+            .swiper {
+                width: 90vw;
+                height: 200px;
+            }
+
+            .swiper-slide {
+                font-size: 13px;
+                padding: 10%;
+            }
+
+            #toggle-tldr {
+                bottom: 15px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #my-slider {
+                bottom: 50px;
+                right: 5px;
+            }
+
+            .swiper {
+                width: 95vw;
+                height: 180px;
+            }
+
+            .swiper-slide {
+                font-size: 12px;
+                padding: 8%;
+            }
+
+            .close-btn {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+
+            #toggle-tldr {
+                bottom: 10px;
+                right: 5px;
+                font-size: 13px;
+                padding: 8px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Slider Container -->
+    <div id="my-slider">
+        <button class="close-btn">×</button>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-pagination"></div>
+                <div class="swiper-slide">
+                    <span>At <b>That’s it.</b>, we create simple, plant-based snacks made from real fruit.
+                        We focus on healthy snacks that contain
+                        <b>no added sugars, preservatives, or artificial ingredients.</b> Our products include
+                        <b>fruit bars, probiotic bars, truffles, and crunchables</b>, providing a convenient way to
+                        enjoy nutritious snacks on the go.</span>
+                </div>
+                <div class="swiper-slide">
+                    <span>Our <b>signature fruit bars</b> contain <b>just one or two ingredients—real fruit</b>. We’re a
+                        go-to choice for
+                        <b>health-conscious consumers, vegans, and those with dietary restrictions</b>, as all of
+                        our
+                        snacks are
+                        <b>allergen-free, gluten-free, and non-GMO.</b></span>
+                </div>
+                <div class="swiper-slide">
+                    <span>
+                        With <b>10,000+ 5-star Amazon reviews</b>, That’s it. is a trusted choice among snack lovers.
+                        Featured
+                        in <b>Forbes, The New York Times, and Healthline</b>, we’re recognized as a top clean snack
+                        choice.
+                        Trusted by <b>nutritionists, dietitians and fitness experts</b>, our snacks are known for their
+                        real, wholesome
+                        ingredients.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TL;DR Button -->
+    <button id="toggle-tldr">TL;DR</button>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper
+        const swiper = new Swiper(".mySwiper", {
+            effect: "fade",
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+
+        // Click slide to go to the next
+        document.querySelector(".swiper-wrapper").addEventListener("click", () => {
+            swiper.slideNext();
+        });
+
+        // Toggle slider visibility
+        const slider = document.getElementById("my-slider");
+        const toggleBtn = document.getElementById("toggle-tldr");
+        const closeBtn = document.querySelector(".close-btn");
+
+        toggleBtn.addEventListener("click", () => {
+            slider.style.transition = "none"; // Prevent jump animation bug
+            void slider.offsetWidth; // Force reflow (fixes animation restart bug)
+            slider.classList.add("open");
+            toggleBtn.style.display = "none";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            slider.style.transition = "none"; // Prevent animation when hiding
+            slider.classList.remove("open");
+            toggleBtn.style.display = "block";
+        });
+    </script>
+</body>
+
+</html>
