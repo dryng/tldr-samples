@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TL;DR Widget Samples</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Sample Files</h1>
+    <p>Click a file to view it:</p>
+    <ul id="file-list"></ul>
+    <script>
+        // List of files in the "sample" folder
+        const files = ["file1.html", "file2.html", "file3.html"]; // Manually add files
+
+        // Get the file list container
+        const fileList = document.getElementById("file-list");
+
+        // Generate file links
+        files.forEach(file => {
+            let listItem = document.createElement("li");
+            let link = document.createElement("a");
+            link.href = `sample/${file}`;
+            link.textContent = file;
+            listItem.appendChild(link);
+            fileList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
