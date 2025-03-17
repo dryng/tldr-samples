@@ -28,7 +28,7 @@
     <ul id="file-list"></ul>
     <script>
         // List of files in the "sample" folder
-        const files = ["thatsit.html", "thatsit2.html", "file3.html"]; // Manually add files
+        const files = ["thatsit.html", "thatsit2.html"]; // Manually add files
 
         // Get the file list container
         const fileList = document.getElementById("file-list");
@@ -37,8 +37,8 @@
         files.forEach(file => {
             let listItem = document.createElement("li");
             let link = document.createElement("a");
-            link.href = `/sample/${file}`;
-            link.textContent = ${file};
+            link.href = `/preview/${file}`;
+            link.textContent = file;
             listItem.appendChild(link);
             fileList.appendChild(listItem);
         });
