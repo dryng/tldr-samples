@@ -17,7 +17,8 @@
             z-index: 100;
             opacity: 0;
             transform: translateX(100%);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: none;
+            /* transition: opacity 0.5s ease, transform 0.5s ease; */
             pointer-events: none;
             max-width: 90vw;
         }
@@ -225,11 +226,14 @@
         const closeBtn = document.querySelector(".close-btn");
 
         toggleBtn.addEventListener("click", () => {
+            slider.style.transition = "none"; // Prevent jump animation bug
+            void slider.offsetWidth; // Force reflow (fixes animation restart bug)
             slider.classList.add("open");
             toggleBtn.style.display = "none";
         });
 
         closeBtn.addEventListener("click", () => {
+            slider.style.transition = "none"; // Prevent animation when hiding
             slider.classList.remove("open");
             toggleBtn.style.display = "block";
         });
